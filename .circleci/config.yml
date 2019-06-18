@@ -1,0 +1,65 @@
+aliases:
+  - &restore-npm-cache
+    key: v1-dependencies-{{ checksum "yarn.lock" }}
+    name: Restoring node_modules/ cache
+  - &save-npm-cache
+    key: v1-dependencies-{{ checksum "yarn.lock" }}
+    name: Saving node_modules/ cache
+    paths:
+      - node_modules
+
+docker-defaults: &docker-defaults
+  docker:
+    - image: circleci/node:10
+
+defaults: &defaults
+  <<: *docker-defaults
+  working_directory: ~/repo
+
+version: 2.1
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-npm-cache
+      - run: yarn build
+
+  install-dependencies:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-npm-cache
+      - run:
+          name: Install Node modules
+          command: yarn
+      - save_cache: *save-npm-cache
+
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-npm-cache
+      - run: yarn lint
+
+workflows:
+  version: 2
+  test-and-build:
+    jobs:
+      - install-dependencies:
+          filters:
+            tags:
+              ignore: /^v.*/
+      - lint:
+          requires:
+            - install-dependencies
+          filters:
+            tags:
+              ignore: /^v.*/
+      - build:
+          requires:
+            - lint
+          filters:
+            tags:
+              ignore: /^v.*/
