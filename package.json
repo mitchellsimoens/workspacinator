@@ -28,9 +28,6 @@
       "git add"
     ]
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "author": {
     "name": "Mitchell Simoens",
     "email": "mitchellsimoens@gmail.com",
