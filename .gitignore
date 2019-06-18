@@ -1,0 +1,5 @@
+node_modules
+*.log
+
+# just cuz this is local, don't care about yarn.lock
+*.lock
