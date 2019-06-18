@@ -50,36 +50,56 @@ const doSpawn = (cwd, ...args) => new Promise((resolve, reject) => {
   })
 });
 
-const getYarnWorkspaces = () => doSpawn(__dirname, 'yarn', 'workspaces', 'info').then(buffer => {
-  buffer.shift(); // removes the "yarn workspaces vx.x.x"
-  buffer.pop(); // removes the "✨  Done in x.xs."
+const getYarnWorkspaces = () => doSpawn(__dirname, 'yarn', 'workspaces', 'info')
+  .then(buffer => {
+    buffer.shift(); // removes the "yarn workspaces vx.x.x"
+    buffer.pop(); // removes the "✨  Done in x.xs."
 
-  const ret = JSON.parse(buffer.join(''));
-  const obj = {};
+    const ret = JSON.parse(buffer.join(''));
+    const workspaces = {};
 
-  Object.keys(ret).forEach(name => {
-    const info = ret[name];
+    Object.keys(ret).forEach(name => {
+      const info = ret[name];
+      const dir = path.resolve(__dirname, info.location);
 
-    obj[name] = {
-      dir: path.resolve(__dirname, info.location),
-    };
+      workspaces[name] = path.resolve(__dirname, info.location);
+    });
+
+    return workspaces;
   });
-
-  return obj;
-});
 
 const findWorkspace = (changePath, workspaces) =>
   Object
     .keys(workspaces)
-    .find(workspaceName => changePath.indexOf(workspaces[workspaceName].dir) === 0);
+    .find(workspaceName => changePath.indexOf(workspaces[workspaceName]) === 0);
+
+const getDependedWorkspaces = (workspaceNames, dependencies) => workspaceNames.reduce((array, workspaceName) => {
+  if (dependencies[workspaceName]) {
+    array.push(workspaceName);
+  }
+
+  return array;
+}, []);
+
+const findDependencies = async (workspaceChanges, workspaces) => {
+  const workspaceNames = Object.keys(workspaces);
+
+  await Promise.all(
+    Object.keys(workspaceChanges).map(workspaceName => {
+      const packageJson = require(path.resolve(workspaces[workspaceName], 'package.json'));
+      const depended = getDependedWorkspaces(workspaceNames, packageJson.dependencies);
+
+      depended.forEach(name => workspaceChanges[name] = true);
+    })
+  )
+};
 
 const run = async (args) => {
   try {
     cache = fs.readFileSync(path.join(__dirname, 'cache.json'));
   } catch {}
 
-  const lastCommit = cache && cache.commit ? cache.commit : 'HEAD^1';
-
+  const lastCommit = cache && cache.commit ? cache.commit : 'HEAD^1';\
   const diff = await getDiff('HEAD', lastCommit);
   const workspaces = await getYarnWorkspaces();
 
@@ -103,11 +123,16 @@ const run = async (args) => {
   console.log('Workspaces that have changes:');
   console.log(JSON.stringify(workspaceChanges, null, 2));
 
+  await findDependencies(workspaceChanges, workspaces);
+
+  console.log('Workspaces and their dependencies that have changes:');
+  console.log(JSON.stringify(workspaceChanges, null, 2));
+
   await Promise.all(
     Object
       .keys(workspaceChanges)
       .map(workspaceName =>
-        doSpawn(workspaces[workspaceName].dir, ...args)
+        doSpawn(workspaces[workspaceName], ...args).then(buffer => console.log(`$ ${args.join(' ')}\n${buffer.join('\n')}`))
       )
   );
 };

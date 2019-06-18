@@ -12,7 +12,7 @@
       "args": [
         "yarn",
         "run",
-        "build"
+        "test"
       ]
     }
   ]
