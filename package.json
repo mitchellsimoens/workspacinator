@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "eslint": "5.16.0",
+    "globby": "9.2.0",
     "simple-git": "1.115.0"
   }
 }
