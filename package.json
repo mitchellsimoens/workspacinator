@@ -1,9 +1,15 @@
 {
   "name": "yarn-git-workspace",
-  "private": true,
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "Executes a command on only changed yarn workspaces",
+  "main": "lib/index.js",
+  "bin": {
+    "some-name": "bin/index.js"
+  },
+  "files": [
+    "bin/**/*",
+    "lib/**/*"
+  ],
   "scripts": {
     "build": "tsc -p .",
     "build:check": "tsc --noEmit -p .",
@@ -22,10 +28,38 @@
       "git add"
     ]
   },
-  "author": "",
-  "license": "ISC",
   "workspaces": [
     "packages/*"
+  ],
+  "author": {
+    "name": "Mitchell Simoens",
+    "email": "mitchellsimoens@gmail.com",
+    "url": "https://mitchellsimoens.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "web-performance",
+    "ci",
+    "performance",
+    "webdevelopment",
+    "javascript",
+    "typescript",
+    "lighthouse",
+    "bundlesize",
+    "audit",
+    "react",
+    "puppeteer"
   ],
   "dependencies": {
     "simple-git": "1.115.0"

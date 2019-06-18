@@ -16,6 +16,7 @@
       "yarn",
       "test"
     ],
+    "cwd": "${workspaceFolder}/example",
     "env": {
       "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
     },
