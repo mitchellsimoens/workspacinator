@@ -60,7 +60,9 @@ const getYarnWorkspaces = () => doSpawn(__dirname, 'yarn', 'workspaces', 'info')
   Object.keys(ret).forEach(name => {
     const info = ret[name];
 
-    obj[name] = path.resolve(__dirname, info.location);
+    obj[name] = {
+      dir: path.resolve(__dirname, info.location),
+    };
   });
 
   return obj;
@@ -69,7 +71,7 @@ const getYarnWorkspaces = () => doSpawn(__dirname, 'yarn', 'workspaces', 'info')
 const findWorkspace = (changePath, workspaces) =>
   Object
     .keys(workspaces)
-    .find(workspaceName => changePath.indexOf(workspaces[workspaceName]) === 0);
+    .find(workspaceName => changePath.indexOf(workspaces[workspaceName].dir) === 0);
 
 const run = async (args) => {
   try {
@@ -81,7 +83,7 @@ const run = async (args) => {
   const diff = await getDiff('HEAD', lastCommit);
   const workspaces = await getYarnWorkspaces();
 
-  diff.push('/Users/mitchellsimoens/Public/yarn-git-workspace/foo/blah.js');
+  diff.push(path.resolve(__dirname, 'packages/frontend/blah.js'));
 
   console.log('yarn workspaces:');
   console.log(JSON.stringify(workspaces, null, 2));
@@ -105,7 +107,7 @@ const run = async (args) => {
     Object
       .keys(workspaceChanges)
       .map(workspaceName =>
-        doSpawn(workspaces[workspaceName], ...args)
+        doSpawn(workspaces[workspaceName].dir, ...args)
       )
   );
 };
