@@ -81,17 +81,20 @@ const getDependedWorkspaces = (workspaceNames, dependencies) => workspaceNames.r
   return array;
 }, []);
 
-const findDependencies = async (workspaceChanges, workspaces) => {
+const findDependencies = (workspaceChanges, workspaces) => {
   const workspaceNames = Object.keys(workspaces);
 
-  await Promise.all(
-    Object.keys(workspaceChanges).map(workspaceName => {
-      const packageJson = require(path.resolve(workspaces[workspaceName], 'package.json'));
-      const depended = getDependedWorkspaces(workspaceNames, packageJson.dependencies);
+  Object.keys(workspaceChanges).map(workspaceName => {
+    const packageJson = require(path.resolve(workspaces[workspaceName], 'package.json'));
+    const depended = [
+      ...getDependedWorkspaces(workspaceNames, packageJson.dependencies),
+      ...getDependedWorkspaces(workspaceNames, packageJson.devDependencies),
+    ];
 
-      depended.forEach(name => workspaceChanges[name] = true);
-    })
-  )
+    // TODO do this deep
+
+    depended.forEach(name => workspaceChanges[name] = true);
+  });
 };
 
 const run = async (args) => {
@@ -99,7 +102,7 @@ const run = async (args) => {
     cache = fs.readFileSync(path.join(__dirname, 'cache.json'));
   } catch {}
 
-  const lastCommit = cache && cache.commit ? cache.commit : 'HEAD^1';\
+  const lastCommit = cache && cache.commit ? cache.commit : 'HEAD^1';
   const diff = await getDiff('HEAD', lastCommit);
   const workspaces = await getYarnWorkspaces();
 
@@ -123,7 +126,7 @@ const run = async (args) => {
   console.log('Workspaces that have changes:');
   console.log(JSON.stringify(workspaceChanges, null, 2));
 
-  await findDependencies(workspaceChanges, workspaces);
+  findDependencies(workspaceChanges, workspaces);
 
   console.log('Workspaces and their dependencies that have changes:');
   console.log(JSON.stringify(workspaceChanges, null, 2));
