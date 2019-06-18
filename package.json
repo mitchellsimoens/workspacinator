@@ -46,17 +46,13 @@
     "access": "public"
   },
   "keywords": [
-    "web-performance",
-    "ci",
-    "performance",
-    "webdevelopment",
-    "javascript",
-    "typescript",
-    "lighthouse",
-    "bundlesize",
-    "audit",
-    "react",
-    "puppeteer"
+    "yarn",
+    "workspaces",
+    "gif",
+    "diff",
+    "command",
+    "execute",
+    "spawn"
   ],
   "dependencies": {
     "simple-git": "1.115.0"
