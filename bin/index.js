@@ -1,3 +1,4 @@
 #! /usr/bin/env node
 
-require('../index')(process.argv.slice(2));
+/* eslint-disable-next-line import/no-unresolved */
+require('../lib/index')(process.argv.slice(2));
