@@ -28,47 +28,50 @@ const getDiff = (commit, old) =>
     );
   });
 
-const getYarnWorkspaces = () =>
-  new Promise((resolve, reject) => {
-    const buffer = [];
+const doSpawn = (cwd, ...args) => new Promise((resolve, reject) => {
+  const buffer = [];
 
-    const cmd = spawn(
-      'yarn',
-      [ 'workspaces', 'info' ],
-      {
-        cwd: __dirname,
-      },
-    );
+  const cmd = spawn(
+    args.shift(),
+    args,
+    {
+      cwd,
+    },
+  );
 
-    cmd.stdout.on('data', data => buffer.push(data.toString()));
+  cmd.stdout.on('data', data => buffer.push(data.toString()));
 
-    cmd.on('close', code => {
-      if (code === 0) {
-        buffer.shift(); // removes the "yarn workspaces vx.x.x"
-        buffer.pop(); // removes the "✨  Done in x.xs."
+  cmd.on('close', code => {
+    if (code === 0) {
+      resolve(buffer);
+    } else {
+      reject(new Error('command failed'));
+    }
+  })
+});
 
-        const ret = JSON.parse(buffer.join(''));
-        const obj = {};
+const getYarnWorkspaces = () => doSpawn(__dirname, 'yarn', 'workspaces', 'info').then(buffer => {
+  buffer.shift(); // removes the "yarn workspaces vx.x.x"
+  buffer.pop(); // removes the "✨  Done in x.xs."
 
-        Object.keys(ret).forEach(name => {
-          const info = ret[name];
+  const ret = JSON.parse(buffer.join(''));
+  const obj = {};
 
-          obj[name] = path.resolve(__dirname, info.location);
-        });
+  Object.keys(ret).forEach(name => {
+    const info = ret[name];
 
-        resolve(obj);
-      } else {
-        reject(new Error('yarn workspaces failed'));
-      }
-    })
+    obj[name] = path.resolve(__dirname, info.location);
   });
+
+  return obj;
+});
 
 const findWorkspace = (changePath, workspaces) =>
   Object
     .keys(workspaces)
     .find(workspaceName => changePath.indexOf(workspaces[workspaceName]) === 0);
 
-(async () => {
+const run = async (args) => {
   try {
     cache = fs.readFileSync(path.join(__dirname, 'cache.json'));
   } catch {}
@@ -97,4 +100,14 @@ const findWorkspace = (changePath, workspaces) =>
 
   console.log('Workspaces that have changes:');
   console.log(JSON.stringify(workspaceChanges, null, 2));
-})();
+
+  await Promise.all(
+    Object
+      .keys(workspaceChanges)
+      .map(workspaceName =>
+        doSpawn(workspaces[workspaceName], ...args)
+      )
+  );
+};
+
+module.exports = run;
