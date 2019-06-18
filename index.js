@@ -73,29 +73,42 @@ const findWorkspace = (changePath, workspaces) =>
     .keys(workspaces)
     .find(workspaceName => changePath.indexOf(workspaces[workspaceName]) === 0);
 
-const getDependedWorkspaces = (workspaceNames, dependencies) => workspaceNames.reduce((array, workspaceName) => {
-  if (dependencies[workspaceName]) {
-    array.push(workspaceName);
+const getDependedWorkspaces = (workspaceNames, dependencies) => {
+  if (dependencies) {
+    return workspaceNames.reduce((array, workspaceName) => {
+      if (dependencies[workspaceName]) {
+        array.push(workspaceName);
+      }
+
+      return array;
+    }, []);
   }
 
-  return array;
-}, []);
+  return [];
+}
 
-const findDependencies = (workspaceChanges, workspaces) => {
+const findWorkspaceDependencies = (workspaceName, workspaceChanges, workspaces) => {
   const workspaceNames = Object.keys(workspaces);
+  const packageJson = require(path.resolve(workspaces[workspaceName], 'package.json'));
+  const depended = [
+    ...getDependedWorkspaces(workspaceNames, packageJson.dependencies),
+    ...getDependedWorkspaces(workspaceNames, packageJson.devDependencies),
+  ];
 
-  Object.keys(workspaceChanges).map(workspaceName => {
-    const packageJson = require(path.resolve(workspaces[workspaceName], 'package.json'));
-    const depended = [
-      ...getDependedWorkspaces(workspaceNames, packageJson.dependencies),
-      ...getDependedWorkspaces(workspaceNames, packageJson.devDependencies),
-    ];
-
-    // TODO do this deep
-
-    depended.forEach(name => workspaceChanges[name] = true);
+  // recursive
+  depended.forEach(dependedName => {
+    if (!workspaceChanges[dependedName]) {
+      findWorkspaceDependencies(dependedName, workspaceChanges, workspaces);
+    }
   });
+
+  depended.forEach(name => workspaceChanges[name] = true);
 };
+
+const findDependencies = (workspaceChanges, workspaces) =>
+  Object
+    .keys(workspaceChanges)
+    .forEach(workspaceName => findWorkspaceDependencies(workspaceName, workspaceChanges, workspaces));
 
 const run = async (args) => {
   try {
