@@ -4,7 +4,7 @@
   "description": "Executes a command in only changed yarn workspaces.",
   "main": "lib/index.js",
   "bin": {
-    "some-name": "bin/index.js"
+    "workspacinator": "bin/workspacinator.js"
   },
   "files": [
     "bin/**/*",
