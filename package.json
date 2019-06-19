@@ -30,13 +30,13 @@
   },
   "author": "Mitchell Simoens <mitchellsimoens@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor#readme",
+  "homepage": "https://github.com/mitchellsimoens/workspacinator#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor.git"
+    "url": "git+https://github.com/mitchellsimoens/workspacinator.git"
   },
   "bugs": {
-    "url": "https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/issues"
+    "url": "https://github.com/mitchellsimoens/workspacinator/issues"
   },
   "publishConfig": {
     "access": "public"

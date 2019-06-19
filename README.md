@@ -1,15 +1,15 @@
 <h1 align="center">Welcome to workspacinator 👋</h1>
 <p>
-  <a href="https://circleci.com/gh/mitchellsimoens/yarn-workspace-git-diff-executor" target="_blank">
-    <img alt="Documentation" src="https://circleci.com/gh/mitchellsimoens/yarn-workspace-git-diff-executor.svg?style=svg&circle-token=f79e8bcae4a91f0a8cfe54c0f1d1d41cbf7a58c6" />
+  <a href="https://circleci.com/gh/mitchellsimoens/workspacinator" target="_blank">
+    <img alt="Documentation" src="https://circleci.com/gh/mitchellsimoens/workspacinator.svg?style=svg&circle-token=f79e8bcae4a91f0a8cfe54c0f1d1d41cbf7a58c6" />
   </a>
   <a href="https://www.npmjs.com/package/workspacinator">
     <img src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
   </a>
-  <a href="https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/graphs/commit-activity">
+  <a href="https://github.com/mitchellsimoens/workspacinator/graphs/commit-activity">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" target="_blank" />
   </a>
-  <a href="https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/blob/master/LICENSE">
+  <a href="https://github.com/mitchellsimoens/workspacinator/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
   </a>
   <a href="https://twitter.com/LikelyMitch">
@@ -19,7 +19,7 @@
 
 > Executes a command in only changed yarn workspaces.
 
-### 🏠 [Homepage](https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor#readme)
+### 🏠 [Homepage](https://github.com/mitchellsimoens/workspacinator#readme)
 
 ## Install
 
@@ -42,7 +42,7 @@ workspacinator
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/mitchellsimoens/workspacinator/issues).
 
 ## Show your support
 
@@ -51,4 +51,4 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2019 [Mitchell Simoens &lt;mitchellsimoens@gmail.com&gt;](https://github.com/mitchellsimoens).<br />
-This project is [MIT](https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/mitchellsimoens/workspacinator/blob/master/LICENSE) licensed.
