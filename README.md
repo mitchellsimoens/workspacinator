@@ -1,16 +1,17 @@
 <h1 align="center">Welcome to workspacinator 👋</h1>
 <p>
   <a href="https://circleci.com/gh/mitchellsimoens/workspacinator" target="_blank">
-    <img alt="Documentation" src="https://circleci.com/gh/mitchellsimoens/workspacinator.svg?style=svg&circle-token=f79e8bcae4a91f0a8cfe54c0f1d1d41cbf7a58c6" />
+    <img alt="CircleCI Build Status" src="https://circleci.com/gh/mitchellsimoens/workspacinator.svg?style=svg&circle-token=f79e8bcae4a91f0a8cfe54c0f1d1d41cbf7a58c6" />
   </a>
   <a href="https://www.npmjs.com/package/workspacinator">
-    <img src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
+    <img alt="npm version" src="https://img.shields.io/npm/v/workspacinator.svg" />
+    <img alt="npm downloads per week" src="https://img.shields.io/npm/dw/workspacinator.svg" />
   </a>
   <a href="https://github.com/mitchellsimoens/workspacinator/graphs/commit-activity">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" target="_blank" />
   </a>
   <a href="https://github.com/mitchellsimoens/workspacinator/blob/master/LICENSE">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
+    <img alt="License: MIT" src="https://img.shields.io/github/license/mitchellsimoens/workspacinator.svg" target="_blank" />
   </a>
   <a href="https://twitter.com/LikelyMitch">
     <img alt="Twitter: LikelyMitch" src="https://img.shields.io/twitter/follow/LikelyMitch.svg?style=social" target="_blank" />
