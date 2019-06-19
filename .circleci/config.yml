@@ -45,7 +45,6 @@ jobs:
 
   publish:
     <<: *defaults
-    executor: docker-publisher
     steps:
       - checkout
       - run:
