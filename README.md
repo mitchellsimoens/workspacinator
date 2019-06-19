@@ -1,18 +1,52 @@
-yarn-workspace-git-diff-executor
-===
+<h1 align="center">Welcome to workspacinator 👋</h1>
+<p>
+  <img src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
+  <a href="https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor#readme">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
+  </a>
+  <a href="https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/graphs/commit-activity">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" target="_blank" />
+  </a>
+  <a href="https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/blob/master/LICENSE">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
+  </a>
+  <a href="https://twitter.com/LikelyMitch">
+    <img alt="Twitter: LikelyMitch" src="https://img.shields.io/twitter/follow/LikelyMitch.svg?style=social" target="_blank" />
+  </a>
+</p>
 
-**Experimental** this tool is experimental and is not expected to be published to npm yet.
+> Executes a command in only changed yarn workspaces.
 
-This example is a start of a tool that can detect file changes in a yarn workspace between two git commit sha ranges.
+### 🏠 [Homepage](https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor#readme)
 
-The idea is you could run `this-tool yarn test` and it will execute whatever comes after `this-tool` (`yarn test` for this example) in any workspace that had a file changed.
+## Install
 
-This will also execute the command in the depended modules. The workspaces with file changes will be iterated over, looked at their `package.json`'s `dependencies` and `devDependencies` object to see if there are any other workspaces in those objects. If so, those will be added to the object of workspaces to execute the command in.
-
-By default, it will check for changes between `HEAD^1` (so one commit behind `HEAD`) and `HEAD`. This will also look for a `cache.json` file where this is executed where you can save a commit to use instead of `HEAD^1`:
-
-```json
-{
-  "commit": "some-commit-sha-here"
-}
+```sh
+yarn global add workspacinator
 ```
+
+## Usage
+
+```sh
+workspacinator
+```
+
+## Author
+
+👤 **Mitchell Simoens &lt;mitchellsimoens@gmail.com&gt;**
+
+- Twitter: [@LikelyMitch](https://twitter.com/LikelyMitch)
+- Github: [@mitchellsimoens](https://github.com/mitchellsimoens)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/issues).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2019 [Mitchell Simoens &lt;mitchellsimoens@gmail.com&gt;](https://github.com/mitchellsimoens).<br />
+This project is [MIT](https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/blob/master/LICENSE) licensed.

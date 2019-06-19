@@ -43,6 +43,20 @@ jobs:
       - restore_cache: *restore-npm-cache
       - run: yarn lint
 
+  publish:
+    <<: *defaults
+    executor: docker-publisher
+    steps:
+      - checkout
+      - run:
+          name: Setup .npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - run: npm i -ci
+      - run: yarn lint
+      - run: yarn test
+      - run: yarn build
+      - run: npm publish
+
 workflows:
   version: 2
   test-and-build:
@@ -63,3 +77,11 @@ workflows:
           filters:
             tags:
               ignore: /^v.*/
+  publish:
+    jobs:
+      - publish:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/

@@ -1,7 +1,7 @@
 {
-  "name": "yarn-git-workspace",
+  "name": "workspacinator",
   "version": "0.0.1",
-  "description": "Executes a command on only changed yarn workspaces",
+  "description": "Executes a command in only changed yarn workspaces.",
   "main": "lib/index.js",
   "bin": {
     "some-name": "bin/index.js"
@@ -28,11 +28,7 @@
       "git add"
     ]
   },
-  "author": {
-    "name": "Mitchell Simoens",
-    "email": "mitchellsimoens@gmail.com",
-    "url": "https://mitchellsimoens.com"
-  },
+  "author": "Mitchell Simoens <mitchellsimoens@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor#readme",
   "repository": {
