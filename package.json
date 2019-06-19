@@ -1,6 +1,6 @@
 {
   "name": "workspacinator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Executes a command in only changed yarn workspaces.",
   "main": "lib/index.js",
   "bin": {
