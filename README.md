@@ -1,8 +1,10 @@
 <h1 align="center">Welcome to workspacinator 👋</h1>
 <p>
-  <img src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
-  <a href="https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor#readme">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
+  <a href="https://circleci.com/gh/mitchellsimoens/yarn-workspace-git-diff-executor" target="_blank">
+    <img alt="Documentation" src="https://circleci.com/gh/mitchellsimoens/yarn-workspace-git-diff-executor.svg?style=svg&circle-token=f79e8bcae4a91f0a8cfe54c0f1d1d41cbf7a58c6" />
+  </a>
+  <a href="https://www.npmjs.com/package/workspacinator">
+    <img src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
   </a>
   <a href="https://github.com/mitchellsimoens/yarn-workspace-git-diff-executor/graphs/commit-activity">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" target="_blank" />
