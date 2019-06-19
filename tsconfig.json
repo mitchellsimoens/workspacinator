@@ -9,6 +9,8 @@
     "types": ["node"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "outDir": "lib",
+    "rootDir": "src",
 
     /* Strict Type-Checking Options */
     /* Raise error on expressions and declarations with an implied 'any' type. */
