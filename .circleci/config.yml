@@ -47,12 +47,11 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - restore_cache: *restore-npm-cache
       - run:
           name: Setup .npmrc
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: npm i -ci
       - run: yarn lint
-      - run: yarn test
       - run: yarn build
       - run: npm publish
 
